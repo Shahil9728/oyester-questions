@@ -1,68 +1,29 @@
-let hour = 11;
-let min = 40;
-let sec = 30;
-let time = "AM";
-if (sec >= 15) {
-    sec = Math.abs(60 - (sec + 45));
-    min++;
-    if (min >= 15) {
-        min = Math.abs(60 - (min + 45));
+const processor = (input) => {
+    let hour = parseInt(input.substr(0, 2));
+    let minute = parseInt(input.substr(3, 2));
+    let second = parseInt(input.substr(6, 2));
+    let noon = (input.substr(8, 2) == 'PM');
+    
+    if (noon) {
+        hour = hour - 12;
+    }
+    second = second + 45;
+    if(minute > 59) {
+        second -= 60;
+        minute++;
+    }
+    minute = minute + 45;
+    if(minute > 59) {
+        minute -= 60;
         hour++;
-        if(time == "PM")
-        {
-            hour=hour
-        }
-        else{
-            if(hour>=12){
-                hour = "0"+Math.abs(12-hour)
-            }
-        }
     }
-    else {
-        min = min + 45;
-        if(time == "PM")
-        {
-            if (hour > 12) {
-                hour = Math.abs(12 - hour)
-            }
-        }
-        else{
-            if(hour>=12){
-                hour = "0"+Math.abs(12-hour)
-            }
-        }
-    }
+   if(hour> 23) {
+       hour = hour - 24;
+   }
+    
+    console.log(`${hour}:${minute}:${second}`);
 }
-else {
-    sec = sec + 45;
-    if (min >= 15) {
-        min = Math.abs(60 - (min + 45));
-        hour++;
-        if(time == "PM")
-        {
-            if (hour > 12) {
-                hour = Math.abs(12 - hour)
-            }
-        }
-        else{
-            if(hour>=12){
-                hour = "0"+Math.abs(12-hour)
-            }
-        }
-    }
-    else {
-        min = min + 45;
-        if(time == "PM")
-        {
-            if (hour > 12) {
-                hour = Math.abs(12 - hour)
-            }
-        }
-        else{
-            if(hour>=12){
-                hour = "0"+Math.abs(12-hour)
-            }
-        }
-    }
-}
-console.log(hour, ":", min, ":", sec);
+
+let input = "12:01:00PM";
+
+processor(input); 
